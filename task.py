@@ -1,5 +1,7 @@
 """Generic class for manipulating task data within the Todo application"""
 
+# TODO - Add un-complete for task
+
 class Task:
   """Used for Todo class to keep track of task content and completion status"""
 
@@ -13,4 +15,4 @@ class Task:
     self.complete = True
 
   def __str__(self):
-    return f'Task - {self.content}\nComplete - {self.complete}'
+    return f'{self.content}\tComplete - {self.complete}'
