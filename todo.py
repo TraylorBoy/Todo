@@ -1,7 +1,5 @@
 """Todo class for managing tasks"""
 
-# TODO - Reorder task id's after task deletion
-
 from task import Task
 
 class Todo:
@@ -13,6 +11,17 @@ class Todo:
     self.task_list = {}
     self.modified = False
     self.num_of_tasks = 0
+
+  def reorder(self):
+    """Re-orders task ids after deletion"""
+
+    tmp = {}
+    keys = list(self.task_list.keys())
+
+    for i in range(1, (self.num_of_tasks + 1)):
+      tmp[i] = self.task_list[keys[i - 1]]
+
+    self.task_list = tmp
 
   def add_task(self, content):
     """Creates a new task and stores it within the task_list"""
@@ -32,6 +41,7 @@ class Todo:
 
     del self.task_list[task_id]
     self.num_of_tasks -= 1
+    self.reorder()
 
     # Update modified state
     # Manager will store new Todo state
@@ -59,6 +69,17 @@ class Todo:
     # Manager will store new Todo state
     self.modify()
 
+  def uncomplete_task(self, task_id):
+    """Changes tasks state to not complete"""
+
+    if task_id > self.num_of_tasks: return
+
+    self.task_list[task_id].unfinish()
+
+    # Update modified state
+    # Manager will store new Todo state
+    self.modify()
+
   def modify(self):
     """Changes modify state to true"""
     self.modified = True
@@ -68,7 +89,7 @@ class Todo:
 
     if len(self.task_list) > 0:
       for (id, task) in self.task_list.items():
-        desc += f'{id} - {task}'
+        desc += f'\n{id}\n----{task}\n'
     else: desc = 'Task list empty'
 
     return desc

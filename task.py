@@ -1,7 +1,5 @@
 """Generic class for manipulating task data within the Todo application"""
 
-# TODO - Add un-complete for task
-
 class Task:
   """Used for Todo class to keep track of task content and completion status"""
 
@@ -14,5 +12,9 @@ class Task:
     """Finishes task after content is accomplished"""
     self.complete = True
 
+  def unfinish(self):
+    """Reverts complete state to False"""
+    self.complete = False
+
   def __str__(self):
-    return f'{self.content}\tComplete - {self.complete}'
+    return f'\n{self.content}\tComplete - {self.complete}'
